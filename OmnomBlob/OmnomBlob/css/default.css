@@ -1,0 +1,16 @@
+﻿body {
+  /* Uncomment this to enable scrolling and zooming
+  touch-action: manipulation;
+  */
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+canvas {
+    background: #302d2d;
+    display: block;
+    margin: 0 auto;
+}
