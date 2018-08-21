@@ -16,6 +16,12 @@ function update() {
 
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw blobs
+    for (let i = 0; i < blobs.length; i++) {
+        blobs[i].draw();
+    }
+
     // Draw player
     player.draw();
 }
@@ -31,17 +37,35 @@ function mouseMoveEvent(e) {
 }
 
 function generateBlobs() {
-    var maxSize = 100;
-    var minSize = 10;
+    let maxSize = 100;
+    let minSize = 10;
 
-    for (var i = 0; i < 100; i++)
+    for (let i = 0; i < 100; i++)
     {
+        // Generate size of blob
+        let blobSize = (Math.random() * (maxSize - minSize)|0) + minSize;
 
+        // Generate location of blob
+        let blobXPosition = (Math.random() * (canvas.width - (blobSize / 2))|0) + (blobSize / 2);
+        let blobYPosition = (Math.random() * (canvas.height - (blobSize / 2))|0) + (blobSize / 2);
+        let blobPositionVector = new Vector(blobXPosition, blobYPosition);
+
+        // Generate random color of blob
+        let color = "#";
+        for (let k = 0; k < 3; k++) {
+            color += ("0" + (Math.random() * 256 | 0).toString(16)).substr(-2);
+        }
+
+        blobs[i] = new Blob(blobPositionVector, color, blobSize);
     }
 }
 
 // Player
 let player = new Player(new Vector(canvas.width / 2, canvas.height / 2), "#FF0000");
+
+// Blobs
+let blobs = [];
+generateBlobs();
 
 // Creates game loop
 setInterval(loop, 10);
